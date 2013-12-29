@@ -29,12 +29,13 @@ Early Stage WIP!
 *   Add hijax to installed apps
 *   Add hijax.plugins.context_processor
 *   Add hijax.plugins.Middleware
-*   Use the @set_title view decorator to set a title
+*   Use the @set_title view decorator to set a title (kludgy)
     *   Pick up in your template using TITLE context, injected by the context processor
 
 
 ## Todo / Improvements
 
+*   On / off by default for links, forms. Flexible ways to scope enabling
 *   Enable / disable debug output?
 *   Add compressed & uncompressed versions of assets
 *   Hijax - deal with when URL does not change. Still want to "refresh"?
