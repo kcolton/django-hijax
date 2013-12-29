@@ -35,9 +35,9 @@ class Middleware(object):
             # Todo - this parsing seems messy for the python world. Probably something better out there. URLObject?
             url = urlsplit(response['location'])
 
-            if not url.scheme:  # Relative URL, add the _bare marker
+            if not url.scheme:  # Relative URL, add the _hijax marker
                 qs = parse_qs(url.query)
-                qs['_bare'] = 'true'
+                qs['_hijax'] = 'true'
 
                 url = url._replace(query=urlencode(qs))
                 response['Location'] = urlunsplit(url)

@@ -3,6 +3,14 @@ Django Hijax
 
 Early Stage WIP!
 
+
+## Features
+
+*   Seamless integration. Drop in enhancement. No changes to views, templates or JS necessary.
+*   Hijax forms even with file uploads that just work.
+*   Handle title changing (kludgy atm)
+*   Handle internal and external redirects
+
 ## Required Statics:
 
 *   hijax/hijax.js

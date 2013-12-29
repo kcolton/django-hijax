@@ -15,9 +15,9 @@ window.Hijax = function($content) {
     if (e.isDefaultPrevented() || e.isPropagationStopped()) return;
 
     $(this).ajaxSubmit({
-      data: {'_bare': true },
+      data: {'_hijax': true },
       complete: function(xhr, status) {
-        debug.log('DangoHijax - ajaxSubmit complete', arguments);
+        console.log('Hijax - ajaxSubmit complete', arguments);
         self.loadFromXhr(xhr);
       }
     });
@@ -26,7 +26,7 @@ window.Hijax = function($content) {
   });
 
   self.get = function(url, params) {
-    debug.log('DangoHijax.get:', url, 'params:', params);
+    console.log('Hijax.get:', url, 'params:', params);
     if (!self.isInternalUrl(url)) return false;
 
     if (params) {
@@ -59,7 +59,7 @@ window.Hijax = function($content) {
       , requestPath = xhr.getResponseHeader('x-request-path')
       , title = xhr.getResponseHeader('x-title')
       , currentUri = new URI(History.getState().url).absoluteTo()
-      , newUri = requestPath ? new URI(requestPath).removeQuery('_bare').absoluteTo() : null;
+      , newUri = requestPath ? new URI(requestPath).removeQuery('_hijax').absoluteTo() : null;
 
     if (externalRedirect) {
       window.location = externalRedirect;
@@ -71,26 +71,26 @@ window.Hijax = function($content) {
     }
 
     if (!newUri) {
-      debug.warn('DangoHijax - warning: received no x-request-path header:', xhr);
+      debug.warn('Hijax - warning: received no x-request-path header:', xhr);
     }
 
     if (newUri && newUri.resource() != currentUri.resource()) {
       // Disconnect between where browser thinks it is, and how it got there. Probably redirect
-      debug.log('DangoHijax - REDIRECT:', currentUri.resource(), '=>', newUri.resource());
+      console.log('Hijax - REDIRECT:', currentUri.resource(), '=>', newUri.resource());
       History.ignoreNextChange = true; // todo - gah! fix this!
       History.replaceState(null, title, newUri.resource());
     }
 
-    debug.log('DangoHijax - loadContentFromXhr - status:', statusCode, 'requestPath:', requestPath,
+    console.log('Hijax - loadContentFromXhr - status:', statusCode, 'requestPath:', requestPath,
       'current uri:', currentUri, 'new uri:', newUri, 'xhr:', xhr,
       'statusCode:', 'contentType:', contentType, 'release:', release);
 
     var content = xhr.responseText;
 
-    debug.log('DangoHijax - loadContent:', content.length, contentType);
+    console.log('Hijax - loadContent:', content.length, contentType);
 
-    $content.html(content.toString()).toggleClass('django-hijax-content-type-text-plain', !contentTypeIsHtml);
-    $(document).scrollTop(0).trigger('page-loaded.django-hijax');
+    $content.html(content.toString()).toggleClass('hijax-content-type-text-plain', !contentTypeIsHtml);
+    $(document).scrollTop(0).trigger('page-loaded.hijax');
   };
 
   History.Adapter.bind(window, 'statechange', function(e) {
@@ -104,7 +104,7 @@ window.Hijax = function($content) {
     }
 
     var uri = new URI(state.hash)
-      .addQuery('_bare', 'true')
+      .addQuery('_hijax', 'true')
       .removeQuery('_suid'); // remove history.js internal identifier before sending to server
 
     var options = {
@@ -116,7 +116,7 @@ window.Hijax = function($content) {
       options.data = state.data;
     }
 
-    debug.log('DangoHijax - history stateChange - loading uri:', uri, 'options:', options);
+    console.log('Hijax - history stateChange - loading uri:', uri, 'options:', options);
     options.dataType = options.dataType || 'html';
 
     $.ajax(uri.toString(), options).always(function(dataOrXhr, textStatus, errorOrXhr) {
