@@ -1,4 +1,4 @@
-Django Hijax
+django-hijax
 ===============================================================================
 
 Early Stage WIP!
@@ -10,6 +10,7 @@ Early Stage WIP!
 *   Hijax forms even with file uploads that just work.
 *   Handle title changing (kludgy atm)
 *   Handle internal and external redirects
+*   Plays nice with Google Analytics. Automatically fires pageview if GA present
 
 ## Required Statics:
 
@@ -35,6 +36,9 @@ Early Stage WIP!
 
 ## Todo / Improvements
 
+*   GA Universal Analytics support
+*   GTM
+*   Python3 compat
 *   On / off by default for links, forms. Flexible ways to scope enabling
 *   Enable / disable debug output?
 *   Add compressed & uncompressed versions of assets
