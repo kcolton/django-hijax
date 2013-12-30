@@ -95,7 +95,7 @@
       $(document).scrollTop(0).trigger('page-loaded.hijax');
 
       // GA
-      if (_gaq) {
+      if (typeof _gaq != 'undefined') {
         _gaq.push(['_trackPageview', newUri.path()]);
       }
       // Todo - universal
