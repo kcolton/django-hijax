@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
     name='django-hijax',
@@ -8,13 +8,8 @@ setup(
     author='Ken Colton',
     author_email='kcolton@gmail.com',
     url='https://github.com/kcolton/django-hijax',
-    packages=['hijax'],
-    package_data={'hijax': [
-        'static/hijax/*.js',
-        'static/hijax/*.css',
-        'static/third_party/*.js',
-        'static/third_party/jquery/*.js',
-    ]},
+    packages=find_packages(),
+    include_package_data=True,
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
