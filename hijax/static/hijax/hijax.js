@@ -1,19 +1,19 @@
 (function($) {
 
-  window.Hijax = function($content) {
+  window.Hijax = function($content, options) {
 
-    var self = this
-      , hijaxNot = ':not([data-hijax-ignore],[target])'
-      , hijaxLinks = 'a[href]' + hijaxNot
-      , hijaxForms = 'form' + hijaxNot
-      ;
+    var self = this;
+    options = options || {};
+    self.notSelector = options.notSelector || ':not([data-hijax-ignore],[target])';
+    self.linksSelector = options.linksSelector || 'a[href]' + self.notSelector;
+    self.formsSelector = options.formsSelector || 'form' + self.notSelector;
 
-    $(document).on('click', hijaxLinks, function(e) {
+    $(document).on('click', self.linksSelector, function(e) {
       if (e.isDefaultPrevented() || e.isPropagationStopped()) return;
       return !self.get($(this).attr('href'));
     });
 
-    $(document).on('submit', hijaxForms, function(e) {
+    $(document).on('submit', self.formsSelector, function(e) {
       if (e.isDefaultPrevented() || e.isPropagationStopped()) return;
 
       $(this).ajaxSubmit({
