@@ -3,3 +3,5 @@ ve
 *.pyc
 *.env
 *.envc
+*.egg-info
+dist/*
