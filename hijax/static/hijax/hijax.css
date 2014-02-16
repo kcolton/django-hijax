@@ -2,3 +2,7 @@
     white-space: pre;
     font-family: monospace, serif;
 }
+
+[data-hijax-href] {
+    cursor: pointer;
+}

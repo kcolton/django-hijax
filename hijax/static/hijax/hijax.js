@@ -9,12 +9,17 @@
     self.formsSelector = options.formsSelector || 'form' + self.notSelector;
     self.ignoreHrefPattern = options.ignoreHrefPattern || /^#|javascript:/gi;
 
-    $(document).on('click', self.linksSelector, function(e) {
+    $(document).on('click.hijax', self.linksSelector, function(e) {
       if (e.isDefaultPrevented() || e.isPropagationStopped()) return;
       var href = $(this).attr('href');
       if (href.match(self.ignoreHrefPattern)) return;
 
       return !self.get(href);
+    });
+
+    $(document).on('click.hijax', '[data-hijax-href]', function(e) {
+      if (e.isDefaultPrevented() || e.isPropagationStopped()) return;
+      return !app.page.get($(this).data('hijaxHref'));
     });
 
     $(document).on('submit', self.formsSelector, function(e) {
