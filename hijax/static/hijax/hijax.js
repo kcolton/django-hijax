@@ -7,10 +7,14 @@
     self.notSelector = options.notSelector || ':not([data-hijax-ignore],[target])';
     self.linksSelector = options.linksSelector || 'a[href]' + self.notSelector;
     self.formsSelector = options.formsSelector || 'form' + self.notSelector;
+    self.ignoreHrefPattern = options.ignoreHrefPattern || /^#|javascript:/gi;
 
     $(document).on('click', self.linksSelector, function(e) {
       if (e.isDefaultPrevented() || e.isPropagationStopped()) return;
-      return !self.get($(this).attr('href'));
+      var href = $(this).attr('href');
+      if (href.match(self.ignoreHrefPattern)) return;
+
+      return !self.get(href);
     });
 
     $(document).on('submit', self.formsSelector, function(e) {
