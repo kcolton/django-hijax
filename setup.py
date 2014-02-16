@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-hijax',
-    version='0.0.2',
+    version='0.0.3',
     description='Hijax framework for Django.',
     author='Ken Colton',
     author_email='kcolton@gmail.com',
