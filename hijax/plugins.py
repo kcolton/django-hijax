@@ -32,11 +32,11 @@ class Middleware(object):
 
         if hasattr(request, 'is_hijax') and request.is_hijax and 'Location' in response:
 
-            # Todo - this parsing seems messy for the python world. Probably something better out there. URLObject?
+            # Todo - better parsing
             url = urlsplit(response['location'])
 
             if not url.scheme:  # Relative URL, add the _hijax marker
-                qs = parse_qs(url.query)
+                qs = {k: v[0] for k, v in parse_qs(url.query).items()}
                 qs['_hijax'] = 'true'
 
                 url = url._replace(query=urlencode(qs))
